@@ -19,11 +19,32 @@
             <div id='body'>
                 
                 <div id='body-left'>
-                    <div id='post-classification'></div>
-                    <div id='post-rank'></div>
+                    <div id='post-classification'>
+                        <ul>
+                            {% for c in c_list %}
+                                <li><a href='{% url "abstract_c_10" c.id %}'>{{ c.name }}({{ c.post_num }})</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div id='post-rank'>
+                        <ol>
+                            {% for post in rank_10_abstract %}
+                                <li><a href='{% url "a_post" post.id %}'>{{ post.title }}({{ post.visit_count }})</a></li>
+                            {% endfor %}
+                        </ol>
+                    </div>
                 </div>
                 
                 <div id='body-right'>
+                    {% for post in latest_10_abstract %}
+                        <div class='post_abstract'>
+                            <div class='post_abstract_title'><a href='{% url "a_post" post.id %}'>{{ post.title }}</a><div>
+                            <div class='post_abstract_abstract'><p>{{ post.abstract }}</p></div>
+                            <div class='post_abstract_footer'>
+                                <p>{{ post.pub_date }}&nbsp;&nbsp;visit({{ post.visit_count }})</p>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
 
