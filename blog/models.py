@@ -1,4 +1,5 @@
 from django.db import models
+import json
 
 # Create your models here.
 
@@ -34,3 +35,21 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_json_abstract(self):
+        data = {}
+        data['id'] = int(self.id);
+        data['title'] = str(self.title)
+        data['visit_count'] = int(self.visit_count)
+        data['pub_date'] = str(self.pub_date)
+        data['abstract'] = str(self.abstract)
+        return json.dumps(data)
+
+    def get_json_content(self):
+        data = {}
+        data['id'] = int(self.id)
+        data['title'] = str(self.title)
+        data['visit_count'] = int(self.visit_count)
+        data['pub_date'] = str(self.pub_date)
+        data['content'] = str(self.content)
+        return json.dumps(data)

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Classification, Post
 from django.http import HttpResponse
+import json
 
 # Create your views here.
 
@@ -15,37 +16,106 @@ def home(req):
     # 最近的10篇post abstract
     latest_10_abstract = Post.objects.order_by('-pub_date').values('id', 'title', 'visit_count', 'pub_date', 'abstract')[:10]
 
-    print(rank_10_abstract)
-
-    response = render(req, 'home.html', {
+    return render(req, 'home.html', {
         'c_list': c_list,
         'rank_10_abstract': rank_10_abstract,
         'latest_10_abstract': latest_10_abstract,
     })
 
-    for c in c_list:
-        response.set_cookie('c_start_' + str(c.id), 1)
-    response.set_cookie('latest_now', len(latest_10_abstract))
 
-    return response
-
-
-def get_abstract_10(req):
+def ajax_get_abstract(req):
     '''
-    获取从第j篇开始的最多10篇posts的abstract
+    通过ajax获取第page_num页的post abstract
     '''
-    return HttpResponse('hello')
+    page_num = int(req.POST['page_num'])
+    start = (page_num-1)*10
+    end = page_num*10
+    posts = Post.objects.order_by('-pub_date')
+    abstracts = []
+    if len(posts)>start:
+        for post in posts[start:end]:
+            abstracts.append(post.get_json_abstract())
+    response_data = {}
+    response_data['page_num'] = page_num
+    response_data['abstracts'] = abstracts
+
+    return HttpResponse(json.dumps(response_data), content_type='application/json')
 
 
-def get_abstract_c_10(req, c_id):
+def get_abstract(req, page_num):
     '''
-    获取分类c_id的从第j篇开始的最多10篇posts的abstract
+    获取第page_num页的post abstract 全页面
     '''
-    return HttpResponse('hello')
+    # 分类列表
+    c_list = Classification.objects.all()
+    # 访问量前10的post abstract
+    rank_10_abstract = Post.objects.order_by('-visit_count').values('id', 'title', 'visit_count')[:10]
+    return render(req, 'abstract_page.html', {
+        'c_list': c_list,
+        'rank_10_abstract': rank_10_abstract,
+        'page_num': page_num,
+    })
 
 
-def get_a_post(req, post_id):
+def ajax_get_abstract_c(req):
     '''
-    获取id为post_id的post全文
+    通过ajax获取分类id为c_id，第page_num页的post abstract
     '''
-    return HttpResponse('hello')
+    c_id = int(req.POST['c_id'])
+    page_num = int(req.POST['page_num'])
+    classification = Classification.objects.get(id=c_id)
+    posts = classification.post_set.order_by('-pub_date')
+    start = (page_num-1)*10
+    end = page_num*10
+    abstracts = []
+    if len(posts)>start:
+        for post in posts[start:end]:
+            abstracts.append(post.get_json_abstract())
+    response_data = {}
+    response_data['c_id'] = c_id
+    response_data['page_num'] = page_num
+    response_data['abstracts'] = abstracts
+
+    return HttpResponse(json.dumps(response_data), content_type='application/json')
+
+
+def get_abstract_c(req, c_id, page_num):
+    '''
+    获取分类id为c_id，第page_num页的post abstract全页面
+    '''
+    # 分类列表
+    c_list = Classification.objects.all()
+    # 访问量前10的post abstract
+    rank_10_abstract = Post.objects.order_by('-visit_count').values('id', 'title', 'visit_count')[:10]
+    return render(req, 'abstract_page.html', {
+        'c_list': c_list,
+        'rank_10_abstract': rank_10_abstract,
+        'c_id': c_id,
+        'page_num': page_num,
+    })
+
+
+def ajax_get_a_post(req):
+    '''
+    通过ajax获取id为id的post全文
+    '''
+    post_id = int(req.POST['id'])
+    a_post = Post.objects.get(id=post_id)
+    response_data = a_post.get_json_content()
+
+    return HttpResponse(response_data, content_type='application/json')
+
+
+def get_post_page(req, post_id):
+    '''
+    获取显示id为post_id的整个页面
+    '''
+    # 分类列表
+    c_list = Classification.objects.all()
+    # 访问量前10的post abstract
+    rank_10_abstract = Post.objects.order_by('-visit_count').values('id', 'title', 'visit_count')[:10]
+    return render(req, 'post_page.html', {
+        'c_list': c_list,
+        'rank_10_abstract': rank_10_abstract,
+        'post_id': post_id,
+    })
