@@ -11,15 +11,15 @@ def home(req):
     '''
     # 分类列表
     c_list = Classification.objects.all()
-    # 访问量前10的post abstract
-    rank_10_abstract = Post.objects.order_by('-visit_count').values('id', 'title', 'visit_count')[:10]
-    # 最近的10篇post abstract
-    latest_10_abstract = Post.objects.order_by('-pub_date').values('id', 'title', 'visit_count', 'pub_date', 'abstract')[:10]
+    # 访问量前5的post abstract
+    rank_5_abstract = Post.objects.order_by('-visit_count').values('id', 'title', 'visit_count')[:5]
+    # 最近的8篇post abstract
+    latest_8_abstract = Post.objects.order_by('-pub_date').values('id', 'title', 'visit_count', 'pub_date', 'abstract')[:8]
 
     return render(req, 'home.html', {
         'c_list': c_list,
-        'rank_10_abstract': rank_10_abstract,
-        'latest_10_abstract': latest_10_abstract,
+        'rank_5_abstract': rank_5_abstract,
+        'latest_8_abstract': latest_8_abstract,
     })
 
 
@@ -28,8 +28,8 @@ def ajax_get_abstract(req):
     通过ajax获取第page_num页的post abstract
     '''
     page_num = int(req.POST['page_num'])
-    start = (page_num-1)*10
-    end = page_num*10
+    start = (page_num-1)*8
+    end = page_num*8
     posts = Post.objects.order_by('-pub_date')
     abstracts = []
     if len(posts)>start:
@@ -48,11 +48,11 @@ def get_abstract(req, page_num):
     '''
     # 分类列表
     c_list = Classification.objects.all()
-    # 访问量前10的post abstract
-    rank_10_abstract = Post.objects.order_by('-visit_count').values('id', 'title', 'visit_count')[:10]
+    # 访问量前5的post abstract
+    rank_5_abstract = Post.objects.order_by('-visit_count').values('id', 'title', 'visit_count')[:5]
     return render(req, 'abstract_page.html', {
         'c_list': c_list,
-        'rank_10_abstract': rank_10_abstract,
+        'rank_5_abstract': rank_5_abstract,
         'page_num': page_num,
     })
 
@@ -65,8 +65,8 @@ def ajax_get_abstract_c(req):
     page_num = int(req.POST['page_num'])
     classification = Classification.objects.get(id=c_id)
     posts = classification.post_set.order_by('-pub_date')
-    start = (page_num-1)*10
-    end = page_num*10
+    start = (page_num-1)*8
+    end = page_num*8
     abstracts = []
     if len(posts)>start:
         for post in posts[start:end]:
@@ -85,11 +85,11 @@ def get_abstract_c(req, c_id, page_num):
     '''
     # 分类列表
     c_list = Classification.objects.all()
-    # 访问量前10的post abstract
-    rank_10_abstract = Post.objects.order_by('-visit_count').values('id', 'title', 'visit_count')[:10]
+    # 访问量前5的post abstract
+    rank_5_abstract = Post.objects.order_by('-visit_count').values('id', 'title', 'visit_count')[:5]
     return render(req, 'abstract_c_page.html', {
         'c_list': c_list,
-        'rank_10_abstract': rank_10_abstract,
+        'rank_5_abstract': rank_5_abstract,
         'c_id': c_id,
         'page_num': page_num,
     })
@@ -114,10 +114,11 @@ def get_post_page(req, post_id):
     '''
     # 分类列表
     c_list = Classification.objects.all()
-    # 访问量前10的post abstract
-    rank_10_abstract = Post.objects.order_by('-visit_count').values('id', 'title', 'visit_count')[:10]
+    # 访问量前5的post abstract
+    rank_5_abstract = Post.objects.order_by('-visit_count').values('id', 'title', 'visit_count')[:5]
     return render(req, 'post_page.html', {
         'c_list': c_list,
-        'rank_10_abstract': rank_10_abstract,
+        'rank_5_abstract': rank_5_abstract,
         'post_id': post_id,
     })
+

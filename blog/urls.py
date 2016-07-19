@@ -20,4 +20,5 @@ urlpatterns = patterns('',
     url(r'^ajax_a_post$', 'blog.views.ajax_get_a_post', name='ajax_a_post'),
     # 获取页面/post/id
     url(r'^post/(\d+)$', 'blog.views.get_post_page', name='post_page'),
+
 )

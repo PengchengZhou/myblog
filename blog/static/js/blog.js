@@ -77,8 +77,8 @@ function get_a_post(post_id, flag)
                 window.history.pushState(state, '', url);
             }
 
-            var title = '<div id="post-title"><h2>'+result['title']+'</h2></div>';
-            var content = '<div id="post-content">'+result['content']+'</div>';
+            var title = '<div id="post-title" class="well"><h2>'+result['title']+'</h2></div>';
+            var content = '<div id="post-content" class="well">'+result['content']+'</div>';
             $('#body-right').html(title+content);
         }
     });
@@ -109,16 +109,16 @@ function get_abstract_by_page_num(page_num, flag)
             {
                 var abstr = abstracts[i];
                 abstr = JSON.parse(abstr);
-                $('#body-right').append("<div class='post_abstract'>"
-                +"<div class='post_abstract_title'><a href='javascript: get_a_post("
-                +abstr.id+", false)'>"+abstr.title+"</a></div><div class='post_abstract_abstract'><p>"
-                +abstr.abstract+"</p></div><div class='post_abstract_footer'><p>"
-                +abstr.pub_date+"&nbsp;&nbsp;阅读("+abstr.visit_count+")</p></div></div>");
+                $('#body-right').append("<div class='post_abstract panel panel-default'>"
+                +"<div class='post_abstract_title panel-heading'><a href='javascript: get_a_post("
+                +abstr.id+", false)'>"+abstr.title+"</a></div><div class='post_abstract_abstract panel-body'><p>"
+                +abstr.abstract+"</p></div><div class='post_abstract_footer panel-footer'>"
+                +abstr.pub_date+"&nbsp;&nbsp;阅读("+abstr.visit_count+")</div></div>");
             }
-            if(len>=10)
+            if(len>=8)
             {
                 var next_page = page_num+1;
-                $('#body-right').append("<div id='next-page'><p><a href='javascript: get_abstract_by_page_num("+next_page+", false)'>下一页</a></p></div>");
+                $('#body-right').append("<button class='btn btn-default pull-right'><a href='javascript: get_abstract_by_page_num("+next_page+", false)'>下一页</a></button>");
             }
         }
     });
@@ -150,16 +150,16 @@ function get_abstract_by_cid_and_page_num(c_id, page_num, flag)
             {
                 var abstr = abstracts[i];
                 abstr = JSON.parse(abstr);
-                $('#body-right').append("<div class='post_abstract'>"
-                +"<div class='post_abstract_title'><a href='javascript: get_a_post("
-                +abstr.id+", false)'>"+abstr.title+"</a></div><div class='post_abstract_abstract'><p>"
-                +abstr.abstract+"</p></div><div class='post_abstract_footer'><p>"
-                +abstr.pub_date+"&nbsp;&nbsp;阅读("+abstr.visit_count+")</p></div></div>");
+                $('#body-right').append("<div class='post_abstract panel panel-default'>"
+                +"<div class='post_abstract_title panel-heading'><a href='javascript: get_a_post("
+                +abstr.id+", false)'>"+abstr.title+"</a></div><div class='post_abstract_abstract panel-body'><p>"
+                +abstr.abstract+"</p></div><div class='post_abstract_footer panel-footer'>"
+                +abstr.pub_date+"&nbsp;&nbsp;阅读("+abstr.visit_count+")</div></div>");
             }
-            if(len>=10)
+            if(len>=8)
             {
                 var next_page = page_num+1;
-                $('#body-right').append("<div id='next-page'><p><a href='javascript: get_abstract_by_cid_and_page_num("+c_id+", "+next_page+", false)'>下一页</a></p></div>");
+                $('#body-right').append("<button class='btn btn-default pull-right'><a href='javascript: get_abstract_by_cid_and_page_num("+c_id+", "+next_page+", false)'>下一页</a></button>");
             }
         }
     });
