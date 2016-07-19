@@ -67,6 +67,7 @@ function get_a_post(post_id, flag)
         data: {'id': post_id},
         dataType: 'json',
         success: function(result){
+            window.scrollTo(0, 0);
             if(flag==false)
             {
                 var url = '/blog/post/'+result['id'];
@@ -92,6 +93,7 @@ function get_abstract_by_page_num(page_num, flag)
         data: {'page_num': page_num},
         dataType: 'json',
         success: function(result){
+            window.scrollTo(0, 0);
             if(flag==false)
             {
                 var url = '/blog/abstract/'+result['page_num'];
@@ -132,6 +134,7 @@ function get_abstract_by_cid_and_page_num(c_id, page_num, flag)
         data: {'c_id': c_id, 'page_num': page_num},
         dataType: 'json',
         success: function(result){
+            window.scrollTo(0, 0);
             if(flag==false)
             {
                 var url = '/blog/abstract_c/'+result['c_id']+'/'+result['page_num'];
