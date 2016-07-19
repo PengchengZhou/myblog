@@ -28,7 +28,7 @@
                         <div id='post-classification-list'>
                             <ul>
                                 {% for c in c_list %}
-                                    <li><a href='javascript: get_abstract_by_cid_and_page_num({{ c.id }}, 1)'+>{{ c.name }}({{ c.post_num }})</a></li>
+                                    <li><a href='javascript: get_abstract_by_cid_and_page_num({{ c.id }}, 1, false)'+>{{ c.name }}({{ c.post_num }})</a></li>
                                 {% endfor %}
                             </ul>
                         </div>
@@ -38,7 +38,7 @@
                         <div id='post-rank-list'>
                             <ol>
                                 {% for post in rank_10_abstract %}
-                                    <li><a href='javascript: get_a_post({{ post.id }})'>{{ post.title }}({{ post.visit_count }})</a></li>
+                                    <li><a href='javascript: get_a_post({{ post.id }}, false)'>{{ post.title }}({{ post.visit_count }})</a></li>
                                 {% endfor %}
                             </ol>
                         </div>

@@ -45,21 +45,21 @@ function addPopStateListener()
         {
             if(state.url=='/blog/ajax_a_post')
             {
-                get_a_post(state.id);
+                get_a_post(state.id, true);
             }
             else if(state.url=='/blog/ajax_abstract')
             {
-                get_abstract_by_page_num(state.page_num);
+                get_abstract_by_page_num(state.page_num, true);
             }
             else if(state.url=='/blog/ajax_abstract_c')
             {
-                get_abstract_by_cid_and_page_num(state.c_id, state.page_num);
+                get_abstract_by_cid_and_page_num(state.c_id, state.page_num, true);
             }
         }
     };
 }
 
-function get_a_post(post_id)
+function get_a_post(post_id, flag)
 {
     $.ajax({
         type: 'POST',
@@ -67,12 +67,15 @@ function get_a_post(post_id)
         data: {'id': post_id},
         dataType: 'json',
         success: function(result){
-            var url = '/blog/post/'+result['id'];
-            var state = {
-                url: '/blog/ajax_a_post',
-                id: result['id'],
-            };
-            window.history.pushState(state, '', url);
+            if(flag==false)
+            {
+                var url = '/blog/post/'+result['id'];
+                var state = {
+                    url: '/blog/ajax_a_post',
+                    id: result['id'],
+                };
+                window.history.pushState(state, '', url);
+            }
 
             var title = '<div id="post-title"><h2>'+result['title']+'</h2></div>';
             var content = '<div id="post-content">'+result['content']+'</div>';
@@ -81,7 +84,7 @@ function get_a_post(post_id)
     });
 }
 
-function get_abstract_by_page_num(page_num)
+function get_abstract_by_page_num(page_num, flag)
 {
     $.ajax({
         type: 'POST',
@@ -89,12 +92,15 @@ function get_abstract_by_page_num(page_num)
         data: {'page_num': page_num},
         dataType: 'json',
         success: function(result){
-            var url = '/blog/abstract/'+result['page_num'];
-            var state = {
-                url: '/blog/ajax_abstract',
-                page_num: result['page_num'],
-            };
-            window.history.pushState(state, '', url);
+            if(flag==false)
+            {
+                var url = '/blog/abstract/'+result['page_num'];
+                var state = {
+                    url: '/blog/ajax_abstract',
+                    page_num: result['page_num'],
+                };
+                window.history.pushState(state, '', url);
+            }
 
             var abstracts = result['abstracts'];
             var i = 0, len = abstracts.length;
@@ -113,7 +119,7 @@ function get_abstract_by_page_num(page_num)
     });
 }
 
-function get_abstract_by_cid_and_page_num(c_id, page_num)
+function get_abstract_by_cid_and_page_num(c_id, page_num, flag)
 {
     $.ajax({
         type: 'POST',
@@ -121,13 +127,16 @@ function get_abstract_by_cid_and_page_num(c_id, page_num)
         data: {'c_id': c_id, 'page_num': page_num},
         dataType: 'json',
         success: function(result){
-            var url = '/blog/abstract_c/'+result['c_id']+'/'+result['page_num'];
-            var state = {
-                url: '/blog/ajax_abstract_c',
-                c_id: result['c_id'],
-                page_num: result['page_num'],
-            };
-            window.history.pushState(state, '', url);
+            if(flag==false)
+            {
+                var url = '/blog/abstract_c/'+result['c_id']+'/'+result['page_num'];
+                var state = {
+                    url: '/blog/ajax_abstract_c',
+                    c_id: result['c_id'],
+                    page_num: result['page_num'],
+                };
+                window.history.pushState(state, '', url);
+            }
 
             var abstracts = result['abstracts'];
             var i = 0, len = abstracts.length;
