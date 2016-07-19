@@ -111,7 +111,7 @@ function get_abstract_by_page_num(page_num, flag)
                 abstr = JSON.parse(abstr);
                 $('#body-right').append("<div class='post_abstract panel panel-default'>"
                 +"<div class='post_abstract_title panel-heading'><a href='javascript: get_a_post("
-                +abstr.id+", false)'>"+abstr.title+"</a></div><div class='post_abstract_abstract panel-body'><p>"
+                +abstr.id+", false)'><h4>"+abstr.title+"</h4></a></div><div class='post_abstract_abstract panel-body'><p>"
                 +abstr.abstract+"</p></div><div class='post_abstract_footer panel-footer'>"
                 +abstr.pub_date+"&nbsp;&nbsp;阅读("+abstr.visit_count+")</div></div>");
             }
@@ -152,7 +152,7 @@ function get_abstract_by_cid_and_page_num(c_id, page_num, flag)
                 abstr = JSON.parse(abstr);
                 $('#body-right').append("<div class='post_abstract panel panel-default'>"
                 +"<div class='post_abstract_title panel-heading'><a href='javascript: get_a_post("
-                +abstr.id+", false)'>"+abstr.title+"</a></div><div class='post_abstract_abstract panel-body'><p>"
+                +abstr.id+", false)'><h4>"+abstr.title+"</h4></a></div><div class='post_abstract_abstract panel-body'><p>"
                 +abstr.abstract+"</p></div><div class='post_abstract_footer panel-footer'>"
                 +abstr.pub_date+"&nbsp;&nbsp;阅读("+abstr.visit_count+")</div></div>");
             }
