@@ -1,6 +1,11 @@
-#header, #footer{
+#header {
     background-color: #6f5499;
-    padding: 5px;
+    padding-left: 30px;
+}
+
+#footer {
+    background-color: #6f5499;
+    padding: 15px;
 }
 
 #header-text, #footer-text {
@@ -8,17 +13,7 @@
     display: block;
 }
 
-#header {
-    margin-top: 0;
-    padding-left: 20px;
-}
-
-#footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-
 .container-fluid {
+    padding-top: 120px;
     padding-bottom: 100px;
 }

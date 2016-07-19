@@ -12,16 +12,17 @@
         <script src="/static/js/blog.js"></script>
     </head>
     <body onload='javascript: addPopStateListener()'>
-        <div class='container-fluid panel'>
-
-            <div class='row-fluid'>
-                <!-- header -->
-                <div id='header' class='col-lg-12 col-xs-12 col-md-12 page-header'>
+        <!-- header -->
+        <div id='header-div'>
+            <nav id='header' class='navbar navbar-default navbar-fixed-top'>
+                <div class='navbar-inner'>
                     <h1 id='header-text'>PC's Blog</h1> 
                 </div>
-            </div>
+            </nav>
+        </div>
 
-            <!-- body -->
+        <!-- body -->
+        <div class='container-fluid panel'>
             <div id='body' class='row-fluid'>
                 <div id='body-left' class='col-lg-3 col-xs-3 col-md-3'>
                     <div id='post-classification' class='panel panel-default'>
@@ -51,13 +52,15 @@
                </div>
             </div>
 
-            <!-- footer -->
-            <div id='footer' class='row-fluid'>
-                <div class='col-lg-12 col-xs-12 col-md-12'>
+        </div>
+
+        <!-- footer -->
+        <div id='footer-div'>
+            <nav id='footer' class='navbar navbar-default navbar-fixed-bottom'>
+                <div class='navbar-inner navbar-content-center'>
                     <span id='footer-text' class='text-center'>Copyright ©2016 pczhou</span>
                 </div>
-            </div>
-
+            </nav>
         </div>
 
     </body>
