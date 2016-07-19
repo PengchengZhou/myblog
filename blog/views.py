@@ -87,7 +87,7 @@ def get_abstract_c(req, c_id, page_num):
     c_list = Classification.objects.all()
     # 访问量前10的post abstract
     rank_10_abstract = Post.objects.order_by('-visit_count').values('id', 'title', 'visit_count')[:10]
-    return render(req, 'abstract_page.html', {
+    return render(req, 'abstract_c_page.html', {
         'c_list': c_list,
         'rank_10_abstract': rank_10_abstract,
         'c_id': c_id,
@@ -101,6 +101,8 @@ def ajax_get_a_post(req):
     '''
     post_id = int(req.POST['id'])
     a_post = Post.objects.get(id=post_id)
+    a_post.visit_count += 1
+    a_post.save()
     response_data = a_post.get_json_content()
 
     return HttpResponse(response_data, content_type='application/json')

@@ -111,7 +111,7 @@ function get_abstract_by_page_num(page_num, flag)
                 abstr = JSON.parse(abstr);
                 $('#body-right').append("<div class='post_abstract'>"
                 +"<div class='post_abstract_title'><a href='javascript: get_a_post("
-                +abstr.id+")'>"+abstr.title+"</a></div><div class='post_abstract_abstract'><p>"
+                +abstr.id+", false)'>"+abstr.title+"</a></div><div class='post_abstract_abstract'><p>"
                 +abstr.abstract+"</p></div><div class='post_abstract_footer'><p>"
                 +abstr.pub_date+"&nbsp;&nbsp;阅读("+abstr.visit_count+")</p></div></div>");
             }
@@ -147,7 +147,7 @@ function get_abstract_by_cid_and_page_num(c_id, page_num, flag)
                 abstr = JSON.parse(abstr);
                 $('#body-right').append("<div class='post_abstract'>"
                 +"<div class='post_abstract_title'><a href='javascript: get_a_post("
-                +abstr.id+")'>"+abstr.title+"</a></div><div class='post_abstract_abstract'><p>"
+                +abstr.id+", false)'>"+abstr.title+"</a></div><div class='post_abstract_abstract'><p>"
                 +abstr.abstract+"</p></div><div class='post_abstract_footer'><p>"
                 +abstr.pub_date+"&nbsp;&nbsp;阅读("+abstr.visit_count+")</p></div></div>");
             }
