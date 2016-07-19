@@ -53,3 +53,20 @@ class Post(models.Model):
         data['pub_date'] = str(self.pub_date)
         data['content'] = str(self.content)
         return json.dumps(data)
+
+    def _do_insert(self, *args, **kwargs):
+        '''
+        覆盖_do_insert方法,以便在新添加post的时候自动增加相应文章分类的计数
+        '''
+        self.classification.post_num += 1
+        self.classification.save()
+        super(Post, self)._do_insert(*args, **kwargs)
+
+
+    def delete(self, *args, **kwargs):
+        '''
+        覆盖delete方法,以便在删除post的时候自动减小相应文章分类的计数
+        '''
+        self.classification.post_num -= 1
+        self.classification.save()
+        super(Post, self).delete(*args, **kwargs)
