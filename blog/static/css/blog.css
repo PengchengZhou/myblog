@@ -57,8 +57,14 @@ h1 {
 
 .post_abstract {
     width: 100%;
-    height: 100px;
+    height: 90px;
     border-bottom: 1px solid #eeeeee;
+}
+
+#next-page {
+    width: 100%;
+    height: 40px;
+    text-align: right;
 }
 
 .post_abstract .post_abstract_title,.post_abstract_abstract,.post_abstract_footer {

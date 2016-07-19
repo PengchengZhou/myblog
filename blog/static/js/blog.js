@@ -115,6 +115,11 @@ function get_abstract_by_page_num(page_num, flag)
                 +abstr.abstract+"</p></div><div class='post_abstract_footer'><p>"
                 +abstr.pub_date+"&nbsp;&nbsp;阅读("+abstr.visit_count+")</p></div></div>");
             }
+            if(len>=10)
+            {
+                var next_page = page_num+1;
+                $('#body-right').append("<div id='next-page'><p><a href='javascript: get_abstract_by_page_num("+next_page+", false)'>下一页</a></p></div>");
+            }
         }
     });
 }
@@ -150,6 +155,11 @@ function get_abstract_by_cid_and_page_num(c_id, page_num, flag)
                 +abstr.id+", false)'>"+abstr.title+"</a></div><div class='post_abstract_abstract'><p>"
                 +abstr.abstract+"</p></div><div class='post_abstract_footer'><p>"
                 +abstr.pub_date+"&nbsp;&nbsp;阅读("+abstr.visit_count+")</p></div></div>");
+            }
+            if(len>=10)
+            {
+                var next_page = page_num+1;
+                $('#body-right').append("<div id='next-page'><p><a href='javascript: get_abstract_by_cid_and_page_num("+c_id+", "+next_page+", false)'>下一页</a></p></div>");
             }
         }
     });
